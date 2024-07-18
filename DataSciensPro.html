@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataSciensPro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* background-color: #f4f4f4; */
+            background-color: #deefff;
+            margin: 0;
+            padding: 0;
+        }
+     
+
+        header {
+            text-align: center;
+            padding: 1em 0;
+        }
+        h1 {
+            font-size: 3em;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, rgba(16, 126, 253, 1), rgba(147, 54, 239, 1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 85vh; /* Adjusted height to fill viewport */
+            margin-top: -50px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        th, td {
+            border: 1px solid #000;
+            text-align: center;
+            padding: 20px;
+        }
+        th {
+            background-color: rgb(1,134,255);
+            color: white;
+            font-size: 20px;
+        }
+        th:nth-child(3) {
+            background-color: #deefff
+        }
+        .noborder {
+            border: none; /* No border for this column */
+        }
+        .info-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Position relative for tooltip positioning */
+        }
+        .info-icon i {
+            font-size: 18px; /* Adjust icon size */
+            color: #333; /* Adjust icon color */
+            cursor: pointer; /* Pointer cursor for better UX */
+        }
+        .tooltip {
+            visibility: hidden;
+            width: 300px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: calc(100% + 10px); /* Position to the right of the icon */
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .info-icon:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 100px;
+        }
+        .icon {
+            font-size: 24px;
+            margin: 0 20px;
+            color: #333; /* Adjust icon color */
+        }
+        .icon:hover {
+            color: #007bff; /* Change icon color on hover */
+            transform: scale(1.1); /* Example: Increase icon size on hover */
+        }
+        .info-icon:hover i {
+            color: #ff0000; /* Change icon color on hover */
+            transform: scale(1.1); /* Example: Increase icon size on hover */
+        }
+    </style>
+    <!-- Font Awesome CSS link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...">
+</head>
+<body>
+    <header>
+        <h1>Welcome to <span class="gradient-text">DataSciensPro</span></h1>
+    </header>
+    <main>
+        <table>
+            <tr>
+                <th>Pre-Requisites</th>
+                <th>Download Links</th>
+                <th class="noborder"></th> <!-- Third column with no border -->
+            </tr>
+            <tr>
+                <td><b>DSPRO Software</b></td>
+                <td><a href="https://github.com/robotixdevteam/Meritus-CVPRO/archive/refs/heads/Windows.zip" download>Click here to download DSPRO</a></td>
+                <td class="noborder info-icon"><a href="https://www.youtube.com/watch?v=BLrHTHUjPuw&t=1250s&pp=ygUgYXJkdWlubyBpZGUgcHJvZ3JhbW1pbmcgdHV0b3JpYWw%3D" target="_blank"><i class="fas fa-exclamation" title="DSPRO"></i></a><span class="tooltip">The downloaded file should be extracted in the User-Profile path <br><br>Ex: <b>C:\Users\John</b></span></td> <!-- Info icon in circle with tooltip -->
+            </tr>
+            <tr>
+                <td><b>Miniconda</b></td>
+                <td><a href="https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe" download>Click here to download Miniconda</a></td>
+                <td class="noborder info-icon"><i class="fas fa-exclamation" title="Miniconda"></i><span class="tooltip">Download and extract the same in your User-Profile path <br><br><b>Ignore if already exists</b></span></td> <!-- Info icon in circle with tooltip -->
+            </tr>
+            <tr>
+                <td><b>Microsoft Power BI</b></td>
+                <td><a href="https://download.microsoft.com/download/8/8/0/880BCA75-79DD-466A-927D-1ABF1F5454B0/PBIDesktopSetup_x64.exe" download>Click here to download Microsoft Power BI</a></td>
+                <td class="noborder info-icon"><i class="fas fa-exclamation" title="Power BI"></i><span class="tooltip">Download and extract the same to C:\Program Files <br><br><b>Ignore if already exists</b></span></td> <!-- Info icon in circle with tooltip -->
+            </tr>
+        </table>
+
+        <!-- Icons section -->
+        <div class="icons">
+            <a href="https://www.facebook.com/meritusai/" target="_blank"><i class="fab fa-facebook-f icon"></i></a>
+            <a href="https://www.instagram.com/meritus.ai/" target="_blank"><i class="fab fa-instagram icon"></i></a>
+            <a href="https://x.com/MeritusAI" target="_blank"><i class="fab fa-twitter icon"></i></a>
+            <a href="https://www.linkedin.com/company/meritusai/" target="_blank"><i class="fab fa-linkedin-in icon"></i></a>
+            <a href="https://www.youtube.com/@meritusai6766" target="_blank"><i class="fab fa-youtube icon"></i></a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 DataSciensPro. All rights reserved.</p>
+    </footer>
+</body>
+</html>
