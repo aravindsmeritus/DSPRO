@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Thermolens - Line Chart Visualization</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon link -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,6 +56,11 @@
             font-size: 30px;
         }
 
+        #uploadBtn:hover i {
+            color: #007bff; /* Change icon color on hover */
+            transform: scale(1.1); /* Example: Increase icon size on hover */
+        }
+
         #saveBtn {
             position: absolute;
             top: 10px; /* Adjust top position */
@@ -71,6 +77,12 @@
         #saveBtn i {
             font-size: 20px; /* Adjust the size of the icon */
         }
+
+        #saveBtn:hover i {
+            color: #007bff; /* Change icon color on hover */
+            transform: scale(1.1); /* Example: Increase icon size on hover */
+        }
+            
 
         #fileName {
             margin-top: 10px;
@@ -94,6 +106,9 @@
                 const contents = e.target.result;
                 parseAndDisplayChart(contents); // Call the function to parse and display the chart
                 showFileName(file.name); // Show the file name
+
+                // Hide the orientation text
+                document.getElementById('orientationText').style.display = 'none';
             };
 
             reader.readAsText(file);
@@ -260,6 +275,7 @@
 <body>
     <div id="lineChartContainer">
         <h2>Thermolens - Line Chart Visualization</h2>
+        <p id="orientationText" style="text-align: center; color: #ff0000"><br><br>Please rotate your phone to landscape orientation</br></br></p>
         <input type="file" id="fileInput" onchange="handleFileSelect(event)">
         <label for="fileInput" id="uploadBtn" title="Upload File">
             <i class="fas fa-upload"></i> <!-- Font Awesome upload icon -->
