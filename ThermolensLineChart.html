@@ -94,6 +94,15 @@
             max-width: 100%;
             height: auto;
         }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .blinking {
+            animation: blink 1s infinite;
+        }
     </style>
     <script>
         let lineChart; // Declare a global variable to store the chart instance
@@ -270,12 +279,27 @@
                 URL.revokeObjectURL(url);
             });
         }
+        function checkOrientation() {
+            if (window.orientation === 0 || window.orientation === 180) {
+                // Portrait orientation
+                document.getElementById('orientationText').style.display = 'block';
+                document.getElementById('orientationText').classList.add('blinking');
+            } else {
+                // Landscape orientation
+                document.getElementById('orientationText').style.display = 'none';
+                document.getElementById('orientationText').classList.remove('blinking');
+            }
+        }
+
+        window.addEventListener('orientationchange', checkOrientation);
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('load', checkOrientation);
     </script>
 </head>
 <body>
     <div id="lineChartContainer">
         <h2>Thermolens - Line Chart Visualization</h2>
-        <p id="orientationText" style="text-align: center; color: #ff0000"><br><br>Please rotate your phone to landscape orientation</br></br></p>
+        <p id="orientationText" style="text-align: center; color: #ff0000"><br>Please rotate your phone to landscape orientation</br></p>
         <input type="file" id="fileInput" onchange="handleFileSelect(event)">
         <label for="fileInput" id="uploadBtn" title="Upload File">
             <i class="fas fa-upload"></i> <!-- Font Awesome upload icon -->
