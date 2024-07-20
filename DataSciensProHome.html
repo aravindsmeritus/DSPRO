@@ -8,13 +8,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            /* background-color: #f4f4f4; */
             background-color: #deefff;
             margin: 0;
             padding: 0;
         }
-     
-
         header {
             text-align: center;
             padding: 1em 0;
@@ -54,7 +51,7 @@
             font-size: 20px;
         }
         th:nth-child(3) {
-            background-color: #deefff
+            background-color: #deefff;
         }
         .noborder {
             border: none; /* No border for this column */
@@ -117,6 +114,76 @@
             color: #ff0000; /* Change icon color on hover */
             transform: scale(1.1); /* Example: Increase icon size on hover */
         }
+
+        /* Styles for the popup */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .popup input[type="password"] {
+            width: calc(100% - 22px); /* Adjusted width to fit with eye icon */
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            position: relative; /* Position relative for eye icon */
+        }
+
+        .popup .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px; /* Adjust size as needed */
+        }
+        .popup .eye-icon img {
+            width: 20px;
+            height: 20px;
+        }
+        .popup button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .popup button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .success {
+            color: rgb(5, 174, 5);
+        }
+        .error {
+            color: red;
+        }
+        .overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
     </style>
     <!-- Font Awesome CSS link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...">
@@ -134,7 +201,7 @@
             </tr>
             <tr>
                 <td><b>DSPRO Setup Assistant</b></td>
-                <td><a href="https://drive.google.com/file/d/1TcTXawd2VguySMZD17IbM5LqR21vtDQx/view?usp=sharing" download>Click here to download DSPRO Setup Assistant</a></td>
+                <td><a href="#" id="dspSetupLink">Click here to download DSPRO Setup Assistant</a></td>
                 <td class="noborder info-icon"><a href="https://www.youtube.com/watch?v=BLrHTHUjPuw&t=1250s&pp=ygUgYXJkdWlubyBpZGUgcHJvZ3JhbW1pbmcgdHV0b3JpYWw%3D" target="_blank"><i class="fas fa-exclamation" title="DSPRO"></i></a><span class="tooltip">The downloaded file should be extracted in the User-Profile path <br><br>Ex: <b>C:\Users\John</b></span></td> <!-- Info icon in circle with tooltip -->
             </tr>
             <tr>
@@ -164,5 +231,75 @@
     <footer>
         <p>&copy; 2024 DataSciensPro. All rights reserved.</p>
     </footer>
+
+    <!-- Popup and overlay -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <div style="position: relative;">
+            <input type="password" id="passkey" placeholder="Enter Passkey">
+        </div>
+        <button onclick="validatePasskey()">Submit</button>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        const correctPasskey = '2105';
+        const googleDriveLink = 'https://drive.google.com/file/d/1TcTXawd2VguySMZD17IbM5LqR21vtDQx/view?usp=sharing';
+
+        function showPopup() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function validatePasskey() {
+            const passkey = document.getElementById('passkey').value;
+            const messageElement = document.getElementById('message');
+
+            if (passkey === correctPasskey) {
+                messageElement.textContent = 'Success';
+                messageElement.className = 'message success';
+                setTimeout(() => {
+                    window.location.href = googleDriveLink;
+                }, 1000); // Redirect after a short delay
+            } else {
+                messageElement.textContent = 'Wrong Passkey';
+                messageElement.className = 'message error';
+            }
+        }
+
+        function togglePasskeyVisibility() {
+            const passkeyInput = document.getElementById('passkey');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            if (passkeyInput.type === 'password') {
+                passkeyInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passkeyInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        document.getElementById('overlay').addEventListener('click', hidePopup);
+
+        document.getElementById('dspSetupLink').addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent the default action
+            showPopup();
+        });
+
+        document.getElementById('passkey').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') { // Check if the Enter key is pressed
+                event.preventDefault(); // Prevent the default form submission behavior
+                validatePasskey(); // Call the validation function
+            }
+        });
+    </script>
 </body>
 </html>
